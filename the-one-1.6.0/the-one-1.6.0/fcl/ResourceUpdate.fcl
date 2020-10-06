@@ -1,0 +1,206 @@
+
+FUNCTION_BLOCK haggle3Infocom5	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	kecepatanEnergy : REAL;
+	percepatanEnergy : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	hasil : REAL;
+END_VAR
+
+FUZZIFY kecepatanEnergy			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM high := trian 0.000943 0.00482 0.006734; 
+        TERM medium:= trian 0.000388 0.000943 0.00149;	
+	TERM low:= trian 3.472e-05 3.472e-05 0.000943;
+END_FUZZIFY
+
+FUZZIFY percepatanEnergy			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := trian -6.491e-06 1.199e-07 3.258e-06; 
+	TERM medium:= trian 1.237e-06 3.258e-06 5.2e-06;
+	TERM high:= trian 3.258e-06 1.665e-05 2.326e-05;
+END_FUZZIFY
+
+DEFUZZIFY hasil			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM low := trian 0 0.15 0.3; 
+	TERM medium:= trian 0.3 0.45 0.6;
+	TERM high:= trian 0.6 0.75 0.9;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+        
+        RULE 1 : IF kecepatanEnergy IS high AND percepatanEnergy IS high THEN hasil IS low;
+        RULE 2 : IF kecepatanEnergy IS high AND percepatanEnergy IS medium THEN hasil IS low;
+        RULE 3 : IF kecepatanEnergy IS high AND percepatanEnergy IS low THEN hasil IS medium;
+        RULE 4 : IF kecepatanEnergy IS medium AND percepatanEnergy IS high THEN hasil IS low;
+        RULE 5 : IF kecepatanEnergy IS medium AND percepatanEnergy IS medium THEN hasil IS medium;
+        RULE 6 : IF kecepatanEnergy IS medium AND percepatanEnergy IS low THEN hasil IS medium;
+        RULE 7 : IF kecepatanEnergy IS low AND percepatanEnergy IS high THEN hasil IS medium;
+        RULE 8 : IF kecepatanEnergy IS low AND percepatanEnergy IS medium THEN hasil IS high;
+        RULE 9 : IF kecepatanEnergy IS low AND percepatanEnergy IS low THEN hasil IS high;
+        
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK reality	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	kecepatanEnergy : REAL;
+	percepatanEnergy : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	hasil : REAL;
+END_VAR
+
+FUZZIFY kecepatanEnergy			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM high := trian 9.38e-06 3.618e-05 5.03e-05; 
+        TERM medium:= trian 4.11e-06 9.38e-06 1.33e-05;	
+	TERM low:= trian -1.326e-05 8.636e-07 9.38e-06;
+END_FUZZIFY
+
+FUZZIFY percepatanEnergy			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := trian -1.145e-09 7.457e-11 8.1e-10; 
+	TERM medium:= trian 2.93e-10 8.1e-10 1.08e-09;
+	TERM high:= trian 8.1e-10 3.124e-09 4.343e-09;
+END_FUZZIFY
+
+DEFUZZIFY hasil			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM low := trian 0 0.15 0.3; 
+	TERM medium:= trian 0.3 0.45 0.6;
+	TERM high:= trian 0.6 0.75 0.9;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+        
+        RULE 1 : IF kecepatanEnergy IS high AND percepatanEnergy IS high THEN hasil IS low;
+        RULE 2 : IF kecepatanEnergy IS high AND percepatanEnergy IS medium THEN hasil IS low;
+        RULE 3 : IF kecepatanEnergy IS high AND percepatanEnergy IS low THEN hasil IS medium;
+        RULE 4 : IF kecepatanEnergy IS medium AND percepatanEnergy IS high THEN hasil IS low;
+        RULE 5 : IF kecepatanEnergy IS medium AND percepatanEnergy IS medium THEN hasil IS medium;
+        RULE 6 : IF kecepatanEnergy IS medium AND percepatanEnergy IS low THEN hasil IS medium;
+        RULE 7 : IF kecepatanEnergy IS low AND percepatanEnergy IS high THEN hasil IS medium;
+        RULE 8 : IF kecepatanEnergy IS low AND percepatanEnergy IS medium THEN hasil IS high;
+        RULE 9 : IF kecepatanEnergy IS low AND percepatanEnergy IS low THEN hasil IS high;
+        
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+FUNCTION_BLOCK haggle3Infocom5habisbatre	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	kecepatanEnergy : REAL;
+	percepatanEnergy : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	hasil : REAL;
+END_VAR
+
+FUZZIFY kecepatanEnergy			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM high := trian 0.01 0.06908 0.09669; 
+        TERM medium:= trian 6.98e-05 0.01 0.0133;	
+	TERM low:= trian -0.02753 6.98e-05 0.01;
+END_FUZZIFY
+
+FUZZIFY percepatanEnergy			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := trian -0.0001902 4.821e-07 6.88e-05; 
+	TERM medium:= trian 4.821e-07 6.88e-05 8.47e-05;
+	TERM high:= trian 6.88e-05 0.0004772 0.0006678;
+END_FUZZIFY
+
+DEFUZZIFY hasil			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM low := trian 0 0.15 0.3; 
+	TERM medium:= trian 0.3 0.45 0.6;
+	TERM high:= trian 0.6 0.75 0.9;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+        
+        RULE 1 : IF kecepatanEnergy IS high AND percepatanEnergy IS high THEN hasil IS low;
+        RULE 2 : IF kecepatanEnergy IS high AND percepatanEnergy IS medium THEN hasil IS low;
+        RULE 3 : IF kecepatanEnergy IS high AND percepatanEnergy IS low THEN hasil IS medium;
+        RULE 4 : IF kecepatanEnergy IS medium AND percepatanEnergy IS high THEN hasil IS low;
+        RULE 5 : IF kecepatanEnergy IS medium AND percepatanEnergy IS medium THEN hasil IS medium;
+        RULE 6 : IF kecepatanEnergy IS medium AND percepatanEnergy IS low THEN hasil IS medium;
+        RULE 7 : IF kecepatanEnergy IS low AND percepatanEnergy IS high THEN hasil IS medium;
+        RULE 8 : IF kecepatanEnergy IS low AND percepatanEnergy IS medium THEN hasil IS high;
+        RULE 9 : IF kecepatanEnergy IS low AND percepatanEnergy IS low THEN hasil IS high;
+        
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK realityhabisbatre	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	kecepatanEnergy : REAL;
+	percepatanEnergy : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	hasil : REAL;
+END_VAR
+
+FUZZIFY kecepatanEnergy			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM high := trian 0.00025 0.001727 0.002417; 
+        TERM medium:= trian 1.727e-06 0.00025 0.000327;	
+	TERM low:= trian -0.0006884 1.727e-06 0.00025;
+END_FUZZIFY
+
+FUZZIFY percepatanEnergy			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := trian -1.189e-07 2.983e-10 4.32e-08; 
+	TERM medium:= trian 7.07e-09 4.32e-08 7.47e-08;
+	TERM high:= trian 4.32e-08 2.982e-07 4.174e-07;
+END_FUZZIFY
+
+DEFUZZIFY hasil			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM low := trian 0 0.15 0.3; 
+	TERM medium:= trian 0.3 0.45 0.6;
+	TERM high:= trian 0.6 0.75 0.9;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+        
+        RULE 1 : IF kecepatanEnergy IS high AND percepatanEnergy IS high THEN hasil IS low;
+        RULE 2 : IF kecepatanEnergy IS high AND percepatanEnergy IS medium THEN hasil IS low;
+        RULE 3 : IF kecepatanEnergy IS high AND percepatanEnergy IS low THEN hasil IS medium;
+        RULE 4 : IF kecepatanEnergy IS medium AND percepatanEnergy IS high THEN hasil IS low;
+        RULE 5 : IF kecepatanEnergy IS medium AND percepatanEnergy IS medium THEN hasil IS medium;
+        RULE 6 : IF kecepatanEnergy IS medium AND percepatanEnergy IS low THEN hasil IS medium;
+        RULE 7 : IF kecepatanEnergy IS low AND percepatanEnergy IS high THEN hasil IS medium;
+        RULE 8 : IF kecepatanEnergy IS low AND percepatanEnergy IS medium THEN hasil IS high;
+        RULE 9 : IF kecepatanEnergy IS low AND percepatanEnergy IS low THEN hasil IS high;
+        
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+

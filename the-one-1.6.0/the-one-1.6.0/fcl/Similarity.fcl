@@ -1,0 +1,204 @@
+
+FUNCTION_BLOCK haggle3Infocom5Rian	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	closeness : REAL;
+	variance : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	hasil : REAL;
+END_VAR
+
+FUZZIFY closeness			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM low := trian -0.4 0 0.91; 
+	TERM medium:= trian 0.83 0.91 0.999;
+	TERM high:= trian 0.91 0.997 1.4;
+END_FUZZIFY
+
+FUZZIFY variance			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := trian -0.318 0.03 0.6; 
+	TERM medium:= trian 0.3898 0.6 0.6637;
+	TERM high:= trian 0.6 0.9 1.248;
+END_FUZZIFY
+
+DEFUZZIFY hasil			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM low := trian 0 0.15 0.3; 
+	TERM medium:= trian 0.3 0.45 0.6;
+	TERM high:= trian 0.6 0.75 0.9;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+        
+        RULE 1 : IF closeness IS low AND variance IS high THEN hasil IS low;
+        RULE 2 : IF closeness IS low AND variance IS medium THEN hasil IS low;
+        RULE 3 : IF closeness IS low AND variance IS low THEN hasil IS medium;
+        RULE 4 : IF closeness IS medium AND variance IS high THEN hasil IS low;
+        RULE 5 : IF closeness IS medium AND variance IS medium THEN hasil IS medium;
+        RULE 6 : IF closeness IS medium AND variance IS low THEN hasil IS medium;
+        RULE 7 : IF closeness IS high AND variance IS high THEN hasil IS medium;
+        RULE 8 : IF closeness IS high AND variance IS medium THEN hasil IS high;
+        RULE 9 : IF closeness IS high AND variance IS low THEN hasil IS high;
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+FUNCTION_BLOCK realityRian	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	closeness : REAL;
+	variance : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	hasil : REAL;
+END_VAR
+
+FUZZIFY closeness			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM low := trian -0.397 0.00265 0.74; 
+	TERM medium:= trian 0.377 0.74 0.89;
+	TERM high:= trian 0.74 1 1.4;
+END_FUZZIFY
+
+FUZZIFY variance			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := trian -0.4 0 0.8; 
+	TERM medium:= trian 0.3629 0.8 0.84;
+	TERM high:= trian 0.8 1 1.4;
+END_FUZZIFY
+
+DEFUZZIFY hasil			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM low := trian 0 0.15 0.3; 
+	TERM medium:= trian 0.3 0.45 0.6;
+	TERM high:= trian 0.6 0.75 0.9;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+        
+        RULE 1 : IF closeness IS low AND variance IS high THEN hasil IS low;
+        RULE 2 : IF closeness IS low AND variance IS medium THEN hasil IS low;
+        RULE 3 : IF closeness IS low AND variance IS low THEN hasil IS medium;
+        RULE 4 : IF closeness IS medium AND variance IS high THEN hasil IS low;
+        RULE 5 : IF closeness IS medium AND variance IS medium THEN hasil IS medium;
+        RULE 6 : IF closeness IS medium AND variance IS low THEN hasil IS medium;
+        RULE 7 : IF closeness IS high AND variance IS high THEN hasil IS medium;
+        RULE 8 : IF closeness IS high AND variance IS medium THEN hasil IS high;
+        RULE 9 : IF closeness IS high AND variance IS low THEN hasil IS high;
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+FUNCTION_BLOCK haggle3Infocom5	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	closeness : REAL;
+	variance : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	hasil : REAL;
+END_VAR
+
+FUZZIFY closeness			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM low := trian 0.58 0.7 0.9032; 
+	TERM medium:= trian 0.89 0.9032 0.9159;
+	TERM high:= trian 0.9032 0.9991 1.12;
+END_FUZZIFY
+
+FUZZIFY variance			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := trian -0.318 0.03 0.5139; 
+	TERM medium:= trian 0.4344 0.51 0.5915;
+	TERM high:= trian 0.5139 0.9 1.248;
+END_FUZZIFY
+
+DEFUZZIFY hasil			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM low := trian 0 0.15 0.3; 
+	TERM medium:= trian 0.3 0.45 0.6;
+	TERM high:= trian 0.6 0.75 0.9;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+        
+        RULE 1 : IF closeness IS low AND variance IS high THEN hasil IS low;
+        RULE 2 : IF closeness IS low AND variance IS medium THEN hasil IS low;
+        RULE 3 : IF closeness IS low AND variance IS low THEN hasil IS medium;
+        RULE 4 : IF closeness IS medium AND variance IS high THEN hasil IS low;
+        RULE 5 : IF closeness IS medium AND variance IS medium THEN hasil IS medium;
+        RULE 6 : IF closeness IS medium AND variance IS low THEN hasil IS medium;
+        RULE 7 : IF closeness IS high AND variance IS high THEN hasil IS medium;
+        RULE 8 : IF closeness IS high AND variance IS medium THEN hasil IS high;
+        RULE 9 : IF closeness IS high AND variance IS low THEN hasil IS high;
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
+FUNCTION_BLOCK reality	// Block definition (there may be more than one block per file)
+
+VAR_INPUT				// Define input variables
+	closeness : REAL;
+	variance : REAL;
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	hasil : REAL;
+END_VAR
+
+FUZZIFY closeness			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM low := trian -0.397 0.00265 0.6483; 
+	TERM medium:= trian 0.5653 0.6483 0.7309;
+	TERM high:= trian 0.6483 1 1.4;
+END_FUZZIFY
+
+FUZZIFY variance			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM low := trian -0.4 0 0.6653; 
+	TERM medium:= trian 0.5788 0.6653 0.7514;
+	TERM high:= trian 0.6653 1 1.4;
+END_FUZZIFY
+
+DEFUZZIFY hasil			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM low := trian 0 0.15 0.3; 
+	TERM medium:= trian 0.3 0.45 0.6;
+	TERM high:= trian 0.6 0.75 0.9;
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+        
+        RULE 1 : IF closeness IS low AND variance IS high THEN hasil IS low;
+        RULE 2 : IF closeness IS low AND variance IS medium THEN hasil IS low;
+        RULE 3 : IF closeness IS low AND variance IS low THEN hasil IS medium;
+        RULE 4 : IF closeness IS medium AND variance IS high THEN hasil IS low;
+        RULE 5 : IF closeness IS medium AND variance IS medium THEN hasil IS medium;
+        RULE 6 : IF closeness IS medium AND variance IS low THEN hasil IS medium;
+        RULE 7 : IF closeness IS high AND variance IS high THEN hasil IS medium;
+        RULE 8 : IF closeness IS high AND variance IS medium THEN hasil IS high;
+        RULE 9 : IF closeness IS high AND variance IS low THEN hasil IS high;
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
