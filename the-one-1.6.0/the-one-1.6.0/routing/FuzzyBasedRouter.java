@@ -49,8 +49,7 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
     private FIS fclFinal;
     LinkedList<Double> kecepatan;
     LinkedList<Double> percepatan;
-    LinkedList<Double> resource;
-    protected LinkedList<Double> sampelBuffer;
+    LinkedList<Double> resource;    
     protected Map<DTNHost, Double> startTimestamps;
     protected Map<DTNHost, List<Duration>> connHistory;
     protected Map<DTNHost, ArrayList<Double>> ambildata;
@@ -178,19 +177,6 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
         FuzzyBasedRouter de = getOtherDecisionEngine(otherHost);
         double me = this.DefuzzificationFinal(dest);
         double peer = de.DefuzzificationFinal(dest);
-
-//        ArrayList<Double> history;
-//        if (!ambildata.containsKey(peer)) {
-//            history = new ArrayList<Double>();
-//        } else {
-//            history = ambildata.get(peer);
-//        }
-//        history.add(me);
-//        ambildata.put(otherHost, history);
-//        if((getHasEnergy(thisHost)==false)||(getHasEnergy(otherHost)==false)){
-//            System.out.println("NODE MATI");  
-//            
-//        }
         return me < peer;
     }
 
