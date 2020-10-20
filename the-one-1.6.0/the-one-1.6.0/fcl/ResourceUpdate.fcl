@@ -11,9 +11,9 @@ VAR_OUTPUT				// Define output variable
 END_VAR
 
 FUZZIFY kecepatanEnergy			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
-	TERM high := trian 0.000943 0.00482 0.006734; 
-        TERM medium:= trian 0.000388 0.000943 0.00149;	
-	TERM low:= trian 3.472e-05 3.472e-05 0.000943;
+        TERM low:= trian 3.472e-05 3.472e-05 0.000943;
+        TERM medium:= trian 0.000388 0.000943 0.00149;
+        TERM high := trian 0.000943 0.00482 0.006734; 	
 END_FUZZIFY
 
 FUZZIFY percepatanEnergy			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
@@ -165,9 +165,9 @@ VAR_OUTPUT				// Define output variable
 END_VAR
 
 FUZZIFY kecepatanEnergy			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
-	TERM high := trian 0.00025 0.001727 0.002417; 
+        TERM low:= trian -0.0006884 1.727e-06 0.00025;	
         TERM medium:= trian 1.727e-06 0.00025 0.000327;	
-	TERM low:= trian -0.0006884 1.727e-06 0.00025;
+	TERM high := trian 0.00025 0.001727 0.002417; 
 END_FUZZIFY
 
 FUZZIFY percepatanEnergy			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
