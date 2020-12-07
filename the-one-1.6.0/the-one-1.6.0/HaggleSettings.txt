@@ -3,11 +3,11 @@
 
 #Scenario.name = Haggle3-Infocom5-ClosenessAmbilDataSaatKontak
 #Scenario.name = Haggle3-Infocom5-VarianceAmbilDataSaatKontak
-#Scenario.name = Haggle3-Infocom5-KecepatanAmbilDataSaatUpdate
+Scenario.name = Haggle3-Infocom5-KecepatanAmbilDataSaatUpdate
 #Scenario.name = Haggle3-Infocom5-PercepatanAmbilDataSaatUpdate
 #Scenario.name = Haggle3-Infocom5-Resource
 #Scenario.name = Haggle3-Infocom5-Similarity
-Scenario.name = Haggle3-Infocom5
+#Scenario.name = Haggle3-Infocom5
 #Scenario.name = Haggle3-Infocom5-BATREHABIS
 
 
@@ -47,6 +47,11 @@ DecisionEngineRouter.decisionEngine = FuzzyBasedRouter
 DecisionEngineRouter.Similarity = fcl/Similarity.fcl
 DecisionEngineRouter.Resource = fcl/ResourceUpdate.fcl
 DecisionEngineRouter.Final = fcl/fuzzy.fcl
+
+DecisionEngineRouter.MinValueKecepatan = 0.0000347
+DecisionEngineRouter.MaxValueKecepatan = 0.0082
+DecisionEngineRouter.MinValuePercepatan = 0.000000012
+DecisionEngineRouter.MaxValuePercepatan = 0.0000166
 
 
 Group.initialEnergy = 2000
@@ -124,24 +129,25 @@ MovementModel.worldSize = 100, 100
 MovementModel.warmup = 1000
 
 # how many reports to load
-Report.nrofReports = 3
+Report.nrofReports = 0
 # length of the warm up period (simulated seconds)
 Report.warmup = 1
 # default directory of reports (can be overridden per Report with output setting)
 #Report.reportDir = reports/FuzzyDataSet/Haggle3-Infocom5/VarianceDataSetV2
 #Report.reportDir = reports/FuzzyDataSet/Haggle3-Infocom5/ClosenessDataSetV2
 #Report.reportDir = reports/FuzzyDataSet2/Haggle3-Infocom5/PercepatanEnergyDataSet
-#Report.reportDir = reports/FuzzyDataSet2/Haggle3-Infocom5/KecepatanEnergyDataSet
+Report.reportDir = reports/FuzzyDataSet2/Haggle3-Infocom5/KecepatanEnergyDataSet
 #Report.reportDir = reports/FuzzyDataSet2/Haggle3-Infocom5/fuzzyEnergyDataSet
 #Report.reportDir = reports/FuzzyDataSet/Haggle3-Infocom5/fuzzySimilarityDataSet
-Report.reportDir = reports/FuzzyFix2/Haggle3-Infocom5
+Report.reportDir = reports/FuzzyFixTENAN/Haggle3-Infocom5
 # Report classes to load
-#Report.report1 = energi
+
 #Report.report1 = turunan1
 #Report.report2 = MessageStatsReport
 #Report.report2 = NumberOfHopsPerMsgPerTimeReport
 Report.report1 = PercentageMessageDeliveredPerContactReport
 Report.report2 = LatencyPerContactReport
 Report.report3 = OverheadPerContactReport
+Report.report4 = energi
 #Report.report4 = NumberOfForwardReport
 #Report.report7 = MessageCopyCountReport

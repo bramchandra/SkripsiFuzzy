@@ -46,6 +46,12 @@ DecisionEngineRouter.Similarity = fcl/Similarity.fcl
 DecisionEngineRouter.Resource = fcl/ResourceUpdate.fcl
 DecisionEngineRouter.Final = fcl/fuzzy.fcl
 
+DecisionEngineRouter.MinValueKecepatan = 0.000000864
+DecisionEngineRouter.MaxValueKecepatan = 0.0000362
+DecisionEngineRouter.MinValuePercepatan = 0.0000000000746
+DecisionEngineRouter.MaxValuePercepatan = 0.00000000312
+
+
 Group.bufferSize = 30M
 # 10M Haggle3 - Infocom5
 # 20M Reality
@@ -117,7 +123,7 @@ MovementModel.worldSize = 100, 100
 MovementModel.warmup = 1000
 
 # how many reports to load
-Report.nrofReports = 3
+Report.nrofReports = 4
 # length of the warm up period (simulated seconds)
 Report.warmup = 1
 # default directory of reports (can be overridden per Report with output setting)
@@ -127,14 +133,15 @@ Report.warmup = 1
 #Report.reportDir = reports/FuzzyDataSet2/Reality/PercepatanEnergyDataSet
 #Report.reportDir = reports/FuzzyDataSet2/Reality/fuzzyEnergyDataSet
 #Report.reportDir = reports/FuzzyDataSet/Reality/fuzzySimilarityDataSet
-Report.reportDir = reports/FuzzyFix2/Reality
+Report.reportDir = reports/FuzzyFixTENAN/Reality
 # Report classes to load
-#Report.report1 = energi
+
 #Report.report1 = turunan1
 #Report.report1 = GetDataTiapContactReport
 Report.report1 = PercentageMessageDeliveredPerContactReport
 Report.report2 = LatencyPerContactReport
 Report.report3 = OverheadPerContactReport
+Report.report4 = energi
 #Report.report5 = networkLifetime
 #Report.report4 = NumberOfForwardReport
 #Report.report5 = NumberOfHopsPerMsgReport

@@ -35,6 +35,14 @@ import routing.DecisionEngineRouter;
 public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
 
     public static final String FCL_SIMILARITY = "Similarity";
+    public static final String MINVALUEKECEPATAN = "MinValueKecepatan";
+    public static final String MAXVALUEKECEPATAN = "MaxValueKecepatan";
+    public static final String MINVALUEPERCEPATAN = "MinValuePercepatan";
+    public static final String MAXVALUEPERCEPATAN = "MaxValuePercepatan";
+    public String MINKECEPATAN;
+    public String MAXKECEPATAN;
+    public String MINPERCEPATAN;
+    public String MAXPERCEPATAN;
     public static final String FCL_RESOURCE = "Resource";
     public static final String FCL_FINAL = "Final";
     public static final String CLOSENESS = "closeness";
@@ -49,23 +57,25 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
     private FIS fclFinal;
     LinkedList<Double> kecepatan;
     LinkedList<Double> percepatan;
-    LinkedList<Double> resource;    
+    LinkedList<Double> resource;
     protected Map<DTNHost, Double> startTimestamps;
     protected Map<DTNHost, List<Duration>> connHistory;
     protected Map<DTNHost, ArrayList<Double>> ambildata;
     LinkedList<Double> energi;
-//    protected List<Double> ambildata2;
     private double interval = 300;
     private double lastRecord;
     private double varianceBuffer;
     private double meanBuffer;
     private int count;
-//    private Double energy;
 
     public FuzzyBasedRouter(Settings s) {
         String fclStringSim = s.getSetting(FCL_SIMILARITY);
         String fclStringRes = s.getSetting(FCL_RESOURCE);
         String fclStringFin = s.getSetting(FCL_FINAL);
+        MINKECEPATAN = s.getSetting(MINVALUEKECEPATAN);
+        MAXKECEPATAN= s.getSetting(MAXVALUEKECEPATAN);
+        MINPERCEPATAN= s.getSetting(MINVALUEPERCEPATAN);
+        MAXPERCEPATAN = s.getSetting(MAXVALUEPERCEPATAN);
         fclSimilarity = FIS.load(fclStringSim);
         fclResource = FIS.load(fclStringRes);
         fclFinal = FIS.load(fclStringFin);
@@ -76,6 +86,10 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
         this.fclSimilarity = t.fclSimilarity;
         this.fclResource = t.fclResource;
         this.fclFinal = t.fclFinal;
+        this.MINKECEPATAN=t.MINKECEPATAN;
+        this.MAXKECEPATAN=t.MAXKECEPATAN;
+        this.MINPERCEPATAN=t.MINPERCEPATAN;
+        this.MAXPERCEPATAN=t.MAXPERCEPATAN;
         kecepatan = new LinkedList<Double>();
         resource = new LinkedList<Double>();
         percepatan = new LinkedList<Double>();
@@ -141,12 +155,13 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
 
     private double getKecepatanEnergy(DTNHost h) {//Kecepatan
         double K = 10.0;
-        double epsilon = Math.pow(10, -3);
+        double epsilon = Math.pow(10, -3);        
         double energy = (Double) h.getComBus().getProperty(routing.util.EnergyModel.ENERGY_VALUE_ID);
         double eMax = (Double) h.getComBus().getProperty(routing.util.EnergyModel.INIT_ENERGY_S);
         double pangkat = Math.exp(Math.log(epsilon) * energy / eMax);
         double turunanSatu = ((K * Math.log(epsilon)) / eMax) * pangkat;
-        return Math.abs(turunanSatu);
+        return countNormalize(Math.abs(turunanSatu), Double.valueOf(MINKECEPATAN),Double.valueOf(MAXKECEPATAN));
+//        return Math.abs(turunanSatu);
     }
 
     private double getPercepatanEnergy(DTNHost h) {//Percepatan
@@ -157,7 +172,13 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
         double pangkat = (Math.log(epsilon) * energy) / eMax;
         double a = (Math.log(epsilon)) / eMax;
         double turunanDua = (K * Math.pow(a, 2)) * Math.exp(pangkat);
-        return turunanDua;
+        return countNormalize(turunanDua, Double.valueOf(MINPERCEPATAN),Double.valueOf(MAXPERCEPATAN));
+    }
+
+    private double countNormalize(double data,double min,double max) {
+        double normalize = 0;
+        normalize = (data - min) / (max - min);
+        return normalize;
     }
 
     public boolean getHasEnergy(DTNHost h) {
@@ -175,18 +196,20 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
         }
         DTNHost dest = m.getTo();
         FuzzyBasedRouter de = getOtherDecisionEngine(otherHost);
+        
         double me = this.DefuzzificationFinal(dest);
         double peer = de.DefuzzificationFinal(dest);
+        System.out.println(getKecepatanEnergy(dest));
         return me < peer;
     }
 
-    private double DefuzzificationResource() {
-        double kecepatanEnergyValue = kecepatan.getLast();
-        double percepatanEnergyValue = percepatan.getLast();
+    private double DefuzzificationResource(DTNHost h) {
+        double kecepatanEnergyValue = getKecepatanEnergy(h);
+        double percepatanEnergyValue = getPercepatanEnergy(h);
         //sisa
         FunctionBlock functionBlock = fclResource.getFunctionBlock("haggle3Infocom5");
 //        FunctionBlock functionBlock = fclResource.getFunctionBlock("reality");
-       
+
         functionBlock.setVariable(KECEPATANENERGY, kecepatanEnergyValue);
         functionBlock.setVariable(PERCEPATANENERGY, percepatanEnergyValue);
         functionBlock.evaluate();
@@ -198,9 +221,8 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
     private double DefuzzificationSimilarity(DTNHost nodes) {
         double closenessValue = getClosenessOfNodes(nodes);
         double varianceValue = getNormalizedVarianceOfNodes(nodes);
-        FunctionBlock functionBlock = fclSimilarity.getFunctionBlock("haggle3Infocom5Rian");
-//        FunctionBlock functionBlock = fclSimilarity.getFunctionBlock("realityRian");
-//        FunctionBlock functionBlock = fclSimilarity.getFunctionBlock("haggle3Infocom5");
+
+        FunctionBlock functionBlock = fclSimilarity.getFunctionBlock("haggle3Infocom5");
 //        FunctionBlock functionBlock = fclSimilarity.getFunctionBlock("reality");
         functionBlock.setVariable(CLOSENESS, closenessValue);
         functionBlock.setVariable(VARIANCE, varianceValue);
@@ -307,9 +329,7 @@ public class FuzzyBasedRouter implements RoutingDecisionEngine, estimasi {
         double simTime = SimClock.getTime();
         if (simTime - lastRecord >= interval) {
             this.energi.add((Double) thisHost.getComBus().getProperty(routing.util.EnergyModel.ENERGY_VALUE_ID));
-            this.kecepatan.add(this.getKecepatanEnergy(thisHost));
-            this.percepatan.add(this.getPercepatanEnergy(thisHost));
-            this.resource.add(this.DefuzzificationResource());
+            this.resource.add(this.DefuzzificationResource(thisHost));
             this.lastRecord = simTime - simTime % interval;
         }
     }

@@ -44,7 +44,6 @@ public class PercentageMessageDeliveredPerContactReport extends Report implement
         this.totalContact = 0;
         this.nrofDeliver = new HashMap<>();
     }
-
     public void messageDeleted(Message m, DTNHost where, boolean dropped) {
     }
 

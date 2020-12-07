@@ -89,18 +89,19 @@ MovementModel.worldSize = 100, 100
 MovementModel.warmup = 1000
 
 # how many reports to load
-Report.nrofReports = 5
+Report.nrofReports = 4
 # length of the warm up period (simulated seconds)
 Report.warmup = 1
 # default directory of reports (can be overridden per Report with output setting)
 #Report.reportDir = reports/ProphetFix/Reality
 Report.reportDir = reports/EpidemicFix/Reality
 # Report classes to load
-Report.report1 = energi
-Report.report2 = LatencyPerContactReport
-Report.report3 = PercentageMessageDeliveredPerContactReport
-Report.report4 = OverheadPerContactReport
-Report.report5 = networkLifetime
+
+Report.report1 = LatencyPerContactReport
+Report.report2 = PercentageMessageDeliveredPerContactReport
+Report.report3 = OverheadPerContactReport
+Report.report4 = energi
+#Report.report5 = networkLifetime
 #Report.report4 = TotalNumberOfFowardPerContactReport
 #Report.report5 = AverageNumberOfHopsPerMessagePerTimeReport
 #Report.report6 = DropPerContactReport

@@ -3,8 +3,8 @@
 #
 
 ## Scenario settings
-#Scenario.name = HaggleInfocom5-ProphetRouter
-Scenario.name = HaggleInfocom5-EpidemicRouter
+Scenario.name = HaggleInfocom5-ProphetRouter
+#Scenario.name = HaggleInfocom5-EpidemicRouter
 Scenario.simulateConnections = false
 Scenario.updateInterval = 1
 # 43200s == 12h
@@ -38,8 +38,8 @@ Scenario.nrofHostGroups = 1
 Group.movementModel = StationaryMovement
 Group.router = DecisionEngineRouter
 ProphetRouter.secondsInTimeUnit = 30
-#DecisionEngineRouter.decisionEngine = ProphetDecisionEngine
-DecisionEngineRouter.decisionEngine = EpidemicDecisionRouter
+DecisionEngineRouter.decisionEngine = ProphetDecisionEngine
+#DecisionEngineRouter.decisionEngine = EpidemicDecisionRouter
 
 Group.initialEnergy = 2000
 Group.scanEnergy = 0.005
@@ -101,17 +101,17 @@ MovementModel.worldSize = 100, 100
 MovementModel.warmup = 1000
 
 # how many reports to load
-Report.nrofReports = 5
+Report.nrofReports = 4
 # length of the warm up period (simulated seconds)
 Report.warmup = 5
 # default directory of reports (can be overridden per Report with output setting)
-#Report.reportDir = reports/ProphetFix/Haggle/
-Report.reportDir = reports/EpidemicFix/Haggle/
+Report.reportDir = reports/ProphetFix/Haggle/
+#Report.reportDir = reports/EpidemicFix/Haggle/
 # Report classes to load
 
 Report.report1 = LatencyPerContactReport
 Report.report2 = PercentageMessageDeliveredPerContactReport
 Report.report3 = OverheadPerContactReport
 Report.report4 = energi
-Report.report5 = networkLifetime
+# Report.report5 = networkLifetime
 # Report.closenessToNodeID = [0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;38;39;40]

@@ -30,20 +30,21 @@ public class energi extends Report implements UpdateListener {
             }
             estimasi fe = (estimasi) de;
 
-            Double getEner = fe.getEnergy().getLast();
-            write(host+" = "+getEner);
+//            Double getEner = fe.getEnergy().getLast();
+//            write(host+"\t"+getEner);
 //                write(host+"\t"+getEner);
                 //haggle node 39
-//            if (host.getAddress() == 39) {
-//                double menit = 5;
-//                LinkedList<Double> getEner = fe.getEnergy();
-//                String output = "Menit\tBaterai\n";
-//                for (Double value : getEner) {
-//                    output += menit + "\t" + value + "\n";
-//                    menit += 5;
-//                }
-//                write(output);
-//            }
+                //Reality node 28
+            if (host.getAddress() == 39) {
+                double menit = 5;
+                LinkedList<Double> getEner = fe.getEnergy();
+                String output = "Menit\tBaterai\n";
+                for (Double value : getEner) {
+                    output += menit + "\t" + value + "\n";
+                    menit += 5;
+                }
+                write(output);
+            }
 
         }
 //            lastRecord = simTime - simTime % interval;

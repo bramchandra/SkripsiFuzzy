@@ -119,8 +119,8 @@ FUZZIFY closeness			// Fuzzify input variable 'service': {'poor', 'good' , 'exce
 END_FUZZIFY
 
 FUZZIFY variance			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
-	TERM low := trian -0.318 0.03 0.5139; 
-	TERM medium:= trian 0.4344 0.51 0.5915;
+	TERM low := trian -0.4 0 0.5139; 
+	TERM medium:= trian 0.448 0.5139 0.6054;
 	TERM high:= trian 0.5139 0.9 1.248;
 END_FUZZIFY
 
@@ -165,13 +165,13 @@ END_VAR
 
 FUZZIFY closeness			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
 	TERM low := trian -0.397 0.00265 0.6483; 
-	TERM medium:= trian 0.5653 0.6483 0.7309;
+	TERM medium:= trian 0.5959 0.6483 0.7616;
 	TERM high:= trian 0.6483 1 1.4;
 END_FUZZIFY
 
 FUZZIFY variance			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
 	TERM low := trian -0.4 0 0.6653; 
-	TERM medium:= trian 0.5788 0.6653 0.7514;
+	TERM medium:= trian 0.5799 0.6653 0.7525;
 	TERM high:= trian 0.6653 1 1.4;
 END_FUZZIFY
 
